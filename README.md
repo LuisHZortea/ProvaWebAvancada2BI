@@ -91,6 +91,12 @@ datasource db {
 }
 
 ```
+
+- Crie também um arquivo ".env" e insira:
+~~~~
+DATABASE_URL=file:./dev.db
+~~~~
+
 - Os arquivos:
 ~~~~
 server.ts: Ele usa o express.json() para permitir o processamento de dados JSON no corpo das requisições. Além disso,
