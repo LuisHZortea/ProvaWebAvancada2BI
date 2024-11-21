@@ -4,7 +4,7 @@
   #### Aluno: Luis Henrique Gomes Zortea | Curso: Ciência da Computação | Turma: CC5M | Professor(a): Otávio Lube Santos
 </div> 
 
-## A API
+## Iniciando a API
  - Primeiramente nós construímos uma API que possibilita a criação de usuários, login e autenticação, e também a possibilidade de fazer postagens e comentários.
  - Segue a lista de comandos utilizados no projeto:
 ~~~~
@@ -49,4 +49,45 @@ Depois de instalado, basta atualizar o script de execução do projeto para:
 
 ```
 "dev": "npx ts-node-dev ./src/server.ts"
+```
+- E utilizamos o Prisma também, com a seguinte configuração:
+```
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String?
+  posts    Post[]
+  comments Comment[]
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean   @default(false)
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  Int
+  comments  Comment[]
+}
+
+model Comment {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String
+  published Boolean @default(false)
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
+  post      Post    @relation(fields: [postId], references: [id])
+  postId    Int
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
 ```
