@@ -11,7 +11,3 @@ export async function generateJWToken(user: User){
     const token = jwt.sign(JSON.stringify(user), privateKey, {algorithm: "HS256"})
     return token;
 }
-
-export async function verifyToken(token: string){
-    return null
-}
