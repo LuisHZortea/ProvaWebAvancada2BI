@@ -20,7 +20,6 @@ export default function Index() {
     loadFonts();
   }, []);
 
-  // Se as fontes ainda não foram carregadas, retorna null para não renderizar nada
   if (!fontsLoaded) {
     return null; 
   }
