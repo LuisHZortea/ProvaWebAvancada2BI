@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import * as Font from 'expo-font';
-import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
-import LogoUVV from '../assets/images/9.png';
+import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto'; 
+import LogoUVV from '../assets/images/uvv.png';
 import { router } from 'expo-router';
 
 export default function Index() {
-
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
@@ -21,26 +20,35 @@ export default function Index() {
     loadFonts();
   }, []);
 
+  // Se as fontes ainda não foram carregadas, retorna null para não renderizar nada
   if (!fontsLoaded) {
     return null; 
   }
 
   return (
     <View style={styles.container}>
+
       <Image source={LogoUVV} style={styles.logo} />
-      <Text style={styles.title}>Veja o que está acontecendo no mundo neste momento.</Text>
-      
+
+      <Text style={styles.title}>
+        UVV
+      </Text>
+
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonPrimary} onPress={() => router.push("/signin")} >
+        
+        <TouchableOpacity style={styles.buttonPrimary} onPress={() => router.push("/signin")}>
           <Text style={styles.buttonTextPrimary}>Entrar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonSecondary} onPress={() => router.push("/signup")}>
           <Text style={styles.buttonTextSecondary}>Criar conta</Text>
         </TouchableOpacity>
 
         <Text style={styles.footerText}>
-          Ao se inscrever, você concorda com nossos <Text style={styles.link}>Termos</Text>, a <Text style={styles.link}>Política de Privacidade</Text> e o <Text style={styles.link}>Uso de Cookies</Text>.
+          Ao se inscrever, você concorda com nossos 
+          <Text style={styles.link}> Termos</Text>, a 
+          <Text style={styles.link}> Política de Privacidade</Text> 
+          e o <Text style={styles.link}>Uso de Cookies</Text>.
         </Text>
       </View>
 

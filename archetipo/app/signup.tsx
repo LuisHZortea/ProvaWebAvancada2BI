@@ -3,28 +3,35 @@ import { Text, TextInput, TouchableOpacity, View, StyleSheet, Image } from 'reac
 import { useFonts, Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import LogoUVV from '../assets/images/9.png';
+import LogoUVV from '../assets/images/uvv.png';
 import { router } from 'expo-router';
 
 export default function SignUp() {
+  // Estados para armazenar os valores dos campos de input
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [nome, setNome] = useState('');
+
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isSenhaFocused, setIsSenhaFocused] = useState(false);
   const [isNomeFocused, setIsNomeFocused] = useState(false);
 
+  // Verifica se todos os campos estão preenchidos para habilitar o botão de "Próximo"
   const isLoginEnabled = nome !== '' && email !== '' && senha !== '';
 
-  async function submit(){
-    if(!isLoginEnabled){
+  // Função para enviar o formulário quando o botão for pressionado
+  async function submit() {
+    // Verifica se todos os campos foram preenchidos
+    if (!isLoginEnabled) {
       alert("Não deixe usuário ou senha em branco");
     }
 
-    console.log("Email: "+ email);
-    console.log("Senha: "+ senha);
-    console.log("Nome: "+ nome);
+    // Exibe os dados no console
+    console.log("Email: " + email);
+    console.log("Senha: " + senha);
+    console.log("Nome: " + nome);
 
+    // Envia uma solicitação POST para o servidor para cadastrar o usuário
     const response = await fetch("http://localhost:3000/auth/signup", {
       method: "POST",
       headers: {
@@ -33,53 +40,56 @@ export default function SignUp() {
       body: JSON.stringify({
         name: nome,
         password: senha,
-        email: email
+        email: email,
       })
-    })
+    });
 
+    // Converte a resposta em JSON
     const result = await response.json();
     console.log(result);
-    if(result.status !== 200){
+
+    // Verifica o status da resposta para garantir que o cadastro foi bem-sucedido
+    if (result.status !== 200) {
       alert("Erro ao realizar a autenticação");
     } else {
-      router.push("/(tabs)")
+      // Se a autenticação for bem-sucedida, navega para a tela principal
+      router.push("/(tabs)");
     }
   }
-
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_500Medium,
   });
 
   if (!fontsLoaded) {
-    return null; 
+    return null;
   }
 
   return (
     <View style={styles.container}>
 
       <View style={styles.topContainer}>
-        <IconButton  onClick={() => router.push("/")} style={styles.closeButton}>
+        <IconButton onClick={() => router.push("/")} style={styles.closeButton}>
           <CloseIcon />
         </IconButton>
 
         <View style={styles.logoContainer}>
-          <Image source={LogoUVV} style={styles.logo}/>
+          <Image source={LogoUVV} style={styles.logo} />
         </View>
       </View>
 
       <Text style={styles.title}>Criar sua conta</Text>
 
       <View style={[styles.inputContainer]}>
-        <Text style={[styles.placeholder, isNomeFocused || email ? styles.focusedPlaceholder : null]}>
+        <Text style={[styles.placeholder, isNomeFocused || nome ? styles.focusedPlaceholder : null]}>
           Nome
         </Text>
         <TextInput
           style={styles.input}
           value={nome}
           onChangeText={setNome}
-          onFocus={() => setIsNomeFocused(true)}
-          onBlur={() => setIsNomeFocused(false)}
+          onFocus={() => setIsNomeFocused(true)} // Altera o estado quando o input está focado
+          onBlur={() => setIsNomeFocused(false)} // Altera o estado quando o input perde o foco
         />
       </View>
 
@@ -97,7 +107,9 @@ export default function SignUp() {
       </View>
 
       <View style={styles.inputContainer}>
-        <Text style={[styles.placeholder, isSenhaFocused || senha ? styles.focusedPlaceholder : null]}>Senha</Text>
+        <Text style={[styles.placeholder, isSenhaFocused || senha ? styles.focusedPlaceholder : null]}>
+          Senha
+        </Text>
         <TextInput
           style={styles.input}
           value={senha}
@@ -111,9 +123,11 @@ export default function SignUp() {
       <TouchableOpacity
         style={[styles.loginButton, isLoginEnabled && styles.loginButtonEnabled]}
         disabled={!isLoginEnabled}
-        onPress={() => {submit()}}
+        onPress={() => { submit() }}
       >
-        <Text style={[styles.loginButtonText, isLoginEnabled && styles.loginButtonTextEnabled]}>Próximo</Text>
+        <Text style={[styles.loginButtonText, isLoginEnabled && styles.loginButtonTextEnabled]}>
+          Próximo
+        </Text>
       </TouchableOpacity>
     </View>
   );
