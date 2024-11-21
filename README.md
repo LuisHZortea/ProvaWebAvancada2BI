@@ -170,7 +170,9 @@ Os usuários podem criar, listar, editar e excluir posts e comentários. Cada po
 - Middleware de Autenticação:
 Para proteger certas rotas, como as que lidam com posts e comentários, pode-se usar o middleware de autenticação (UserMiddleware) para verificar se o usuário está autenticado por meio de um token JWT.
 
-## O Archetipo:
+## O Archetipo
+
+- O arquivo do Archetipo foi fornecido para integrar a API desenvolvida para um aplicativo Mobile.
 ~~~~
 npm install -> Para instalar as dependências.
 ~~~~
