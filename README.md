@@ -8,6 +8,7 @@
  - Primeiramente nós construímos uma API que possibilita a criação de usuários, login e autenticação, e também a possibilidade de fazer postagens e comentários.
  - Segue a lista de comandos utilizados no projeto:
 ~~~~
+- npm install -> Para instalar as dependências.
 - npm init -y -> Inicia o projeto Node.js.
 - npm i typescript -> Instala o TypeScript no seu projeto.
 - npx tsc --init -> Cria o arquivo de configuração tsconfig.json
@@ -97,6 +98,16 @@ datasource db {
 DATABASE_URL=file:./dev.db
 ~~~~
 
+- Para iniciar a API:
+~~~~
+npm run dev
+~~~~
+
+- Para iniciar o servidor:
+~~~~
+npm run dev
+~~~~
+
 - Os arquivos:
 ~~~~
 server.ts: Ele usa o express.json() para permitir o processamento de dados JSON no corpo das requisições. Além disso,
@@ -158,3 +169,14 @@ Os usuários podem criar, listar, editar e excluir posts e comentários. Cada po
 
 - Middleware de Autenticação:
 Para proteger certas rotas, como as que lidam com posts e comentários, pode-se usar o middleware de autenticação (UserMiddleware) para verificar se o usuário está autenticado por meio de um token JWT.
+
+## O Archetipo:
+~~~~
+npm install -> Para instalar as dependências.
+~~~~
+
+- Para iniciar o servidor:
+~~~~
+npm run web
+~~~~
+
